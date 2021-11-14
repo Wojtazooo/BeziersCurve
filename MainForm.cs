@@ -40,10 +40,14 @@ namespace BeziersCurve
             var dx = drawingArea.Width / (numberOfVertices + 1);
             var drawingAreaMiddleY = drawingArea.Height / 2;
 
+            Random random = new Random();
+
             List<Point> polylinePoints = new List<Point>();
             for(int i = 0; i < numberOfVertices; i++)
             {
-                polylinePoints.Add(new Point(dx * (i + 1), drawingAreaMiddleY));
+                var yRandomizer = random.NextDouble() * 2 - 1;
+
+                polylinePoints.Add(new Point(dx * (i + 1), (int)(drawingAreaMiddleY + yRandomizer*drawingAreaMiddleY)));
             }
             _bezierCurve.SetNewPolyline(polylinePoints);
         }
