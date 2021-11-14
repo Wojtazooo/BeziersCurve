@@ -22,6 +22,7 @@ namespace BeziersCurve
             InitializeRefreshTimer();
             InitializeGraphics();
             _bezierCurve = new BezierCurve();
+            GenerateButtonClicked(null, null);
             moveVerticesHandler = new MoveVerticesHandler(_bezierCurve, drawingArea);
         }
 
@@ -44,7 +45,7 @@ namespace BeziersCurve
             {
                 polylinePoints.Add(new Point(dx * (i + 1), drawingAreaMiddleY));
             }
-            _bezierCurve.polyline = polylinePoints;
+            _bezierCurve.SetNewPolyline(polylinePoints);
         }
 
         private void InitializeRefreshTimer()
@@ -80,22 +81,6 @@ namespace BeziersCurve
         private void drawingArea_MouseUp(object sender, MouseEventArgs e)
         {
             moveVerticesHandler?.HandleMouseUp(e);
-        }
-    }
-
-    public class BezierCurve
-    {
-        public List<Point> polyline = new List<Point>();
-
-        public void DrawPolyline(Graphics g)
-        {
-            for(int i = 0; i < polyline.Count; i++)
-            {
-                var nextPoint = polyline[i];
-                var R = Constants.POLYLINE_CIRCLE_R;
-                g.FillEllipse(Brushes.Blue, new Rectangle(nextPoint.X - R, nextPoint.Y - R, 2*R, 2*R));
-                if (i > 0) g.DrawLine(Pens.Green, polyline[i - 1], polyline[i]);
-            }
         }
     }
 }

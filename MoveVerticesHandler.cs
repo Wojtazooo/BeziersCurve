@@ -26,7 +26,7 @@ namespace BeziersCurve
             var mousePoint = new Point(e.X, e.Y);
             if (moving)
             {
-                BezierCurve.polyline[indexOfPointToMove.Value] = mousePoint;
+                BezierCurve.MovePoint(indexOfPointToMove.Value, mousePoint);
                 return;
             }
 

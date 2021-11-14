@@ -73,6 +73,11 @@ namespace BeziersCurve
             this.numberOfPointsInput.Name = "numberOfPointsInput";
             this.numberOfPointsInput.Size = new System.Drawing.Size(100, 23);
             this.numberOfPointsInput.TabIndex = 4;
+            this.numberOfPointsInput.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // MainForm
             // 
