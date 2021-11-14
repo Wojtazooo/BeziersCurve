@@ -29,20 +29,72 @@ namespace BeziersCurve
         /// </summary>
         private void InitializeComponent()
         {
+            this.drawingArea = new System.Windows.Forms.PictureBox();
+            this.generateButton = new System.Windows.Forms.Button();
+            this.NumberOfPointsLabel = new System.Windows.Forms.Label();
+            this.numberOfPointsInput = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.drawingArea)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numberOfPointsInput)).BeginInit();
             this.SuspendLayout();
+            // 
+            // drawingArea
+            // 
+            this.drawingArea.Location = new System.Drawing.Point(12, 12);
+            this.drawingArea.Name = "drawingArea";
+            this.drawingArea.Size = new System.Drawing.Size(1153, 837);
+            this.drawingArea.TabIndex = 0;
+            this.drawingArea.TabStop = false;
+            // 
+            // generateButton
+            // 
+            this.generateButton.Location = new System.Drawing.Point(1328, 67);
+            this.generateButton.Name = "generateButton";
+            this.generateButton.Size = new System.Drawing.Size(100, 23);
+            this.generateButton.TabIndex = 2;
+            this.generateButton.Text = "Generate";
+            this.generateButton.UseVisualStyleBackColor = true;
+            this.generateButton.Click += new System.EventHandler(this.GenerateButtonClicked);
+            // 
+            // NumberOfPointsLabel
+            // 
+            this.NumberOfPointsLabel.AutoSize = true;
+            this.NumberOfPointsLabel.Location = new System.Drawing.Point(1221, 41);
+            this.NumberOfPointsLabel.Name = "NumberOfPointsLabel";
+            this.NumberOfPointsLabel.Size = new System.Drawing.Size(101, 15);
+            this.NumberOfPointsLabel.TabIndex = 3;
+            this.NumberOfPointsLabel.Text = "Number of points";
+            // 
+            // numberOfPointsInput
+            // 
+            this.numberOfPointsInput.Location = new System.Drawing.Point(1328, 39);
+            this.numberOfPointsInput.Name = "numberOfPointsInput";
+            this.numberOfPointsInput.Size = new System.Drawing.Size(100, 23);
+            this.numberOfPointsInput.TabIndex = 4;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.Controls.Add(this.numberOfPointsInput);
+            this.Controls.Add(this.NumberOfPointsLabel);
+            this.Controls.Add(this.generateButton);
+            this.Controls.Add(this.drawingArea);
             this.Name = "MainForm";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.drawingArea)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numberOfPointsInput)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.PictureBox drawingArea;
+        private System.Windows.Forms.Button generateButton;
+        private System.Windows.Forms.Label NumberOfPointsLabel;
+        private System.Windows.Forms.NumericUpDown numberOfPointsInput;
     }
 }
 
