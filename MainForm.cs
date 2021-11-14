@@ -15,11 +15,14 @@ namespace BeziersCurve
         private Timer _renderingTimer;
         private BezierCurve _bezierCurve;
         private Graphics drawingAreaGraphics;
+        private MoveVerticesHandler moveVerticesHandler;
         public MainForm()
         {
             InitializeComponent();
             InitializeRefreshTimer();
             InitializeGraphics();
+            _bezierCurve = new BezierCurve();
+            moveVerticesHandler = new MoveVerticesHandler(_bezierCurve, drawingArea);
         }
 
         private void InitializeGraphics()
@@ -41,7 +44,7 @@ namespace BeziersCurve
             {
                 polylinePoints.Add(new Point(dx * (i + 1), drawingAreaMiddleY));
             }
-            _bezierCurve = new BezierCurve(polylinePoints);
+            _bezierCurve.polyline = polylinePoints;
         }
 
         private void InitializeRefreshTimer()
@@ -63,16 +66,27 @@ namespace BeziersCurve
         {
             GenerateBezierCurve((int)numberOfPointsInput.Value);
         }
+
+        private void drawingArea_MouseMove(object sender, MouseEventArgs e)
+        {
+            moveVerticesHandler?.HandleMouseMove(e);
+        }
+
+        private void drawingArea_MouseDown(object sender, MouseEventArgs e)
+        {
+            moveVerticesHandler?.HandleMouseDown(e);
+        }
+
+        private void drawingArea_MouseUp(object sender, MouseEventArgs e)
+        {
+            moveVerticesHandler?.HandleMouseUp(e);
+        }
     }
 
     public class BezierCurve
     {
-        private List<Point> polyline = new List<Point>();
+        public List<Point> polyline = new List<Point>();
 
-        public BezierCurve(List<Point> initalPolylinePoints)
-        {
-            polyline = new List<Point>(initalPolylinePoints);
-        }
         public void DrawPolyline(Graphics g)
         {
             for(int i = 0; i < polyline.Count; i++)

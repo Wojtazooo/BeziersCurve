@@ -44,6 +44,9 @@ namespace BeziersCurve
             this.drawingArea.Size = new System.Drawing.Size(1153, 837);
             this.drawingArea.TabIndex = 0;
             this.drawingArea.TabStop = false;
+            this.drawingArea.MouseDown += new System.Windows.Forms.MouseEventHandler(this.drawingArea_MouseDown);
+            this.drawingArea.MouseMove += new System.Windows.Forms.MouseEventHandler(this.drawingArea_MouseMove);
+            this.drawingArea.MouseUp += new System.Windows.Forms.MouseEventHandler(this.drawingArea_MouseUp);
             // 
             // generateButton
             // 
