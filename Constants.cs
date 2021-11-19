@@ -8,8 +8,8 @@ namespace BeziersCurve
 {
     internal class Constants
     {
-        public static int DETECTION_RADIUS = 10;
-        public static int REFRESH_TIME_IN_MS = 10;
-        public static int POLYLINE_CIRCLE_R = 5;
+        public const int DETECTION_RADIUS = 10;
+        public const int REFRESH_TIME_IN_MS = 10;
+        public const int DOT_R = 5;
     }
 }

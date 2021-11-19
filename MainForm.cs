@@ -42,12 +42,12 @@ namespace BeziersCurve
 
             Random random = new Random();
 
-            List<Point> polylinePoints = new List<Point>();
+            List<FPoint> polylinePoints = new List<FPoint>();
             for(int i = 0; i < numberOfVertices; i++)
             {
                 var yRandomizer = random.NextDouble() * 2 - 1;
 
-                polylinePoints.Add(new Point(dx * (i + 1), (int)(drawingAreaMiddleY + yRandomizer*drawingAreaMiddleY)));
+                polylinePoints.Add(new FPoint(dx * (i + 1), (int)(drawingAreaMiddleY + yRandomizer*drawingAreaMiddleY)));
             }
             _bezierCurve.SetNewPolyline(polylinePoints);
         }
@@ -64,6 +64,7 @@ namespace BeziersCurve
         {
             drawingAreaGraphics.Clear(Color.White);
             _bezierCurve?.DrawPolyline(drawingAreaGraphics);
+            _bezierCurve?.DrawAdditionalPoint(drawingAreaGraphics, (double)tTrackBar.Value / tTrackBar.Maximum);
             drawingArea.Invalidate();
         }
 

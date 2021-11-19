@@ -33,8 +33,10 @@ namespace BeziersCurve
             this.generateButton = new System.Windows.Forms.Button();
             this.NumberOfPointsLabel = new System.Windows.Forms.Label();
             this.numberOfPointsInput = new System.Windows.Forms.NumericUpDown();
+            this.tTrackBar = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.drawingArea)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberOfPointsInput)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // drawingArea
@@ -79,11 +81,20 @@ namespace BeziersCurve
             0,
             0});
             // 
+            // tTrackBar
+            // 
+            this.tTrackBar.Location = new System.Drawing.Point(1186, 143);
+            this.tTrackBar.Maximum = 100;
+            this.tTrackBar.Name = "tTrackBar";
+            this.tTrackBar.Size = new System.Drawing.Size(315, 45);
+            this.tTrackBar.TabIndex = 5;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.Controls.Add(this.tTrackBar);
             this.Controls.Add(this.numberOfPointsInput);
             this.Controls.Add(this.NumberOfPointsLabel);
             this.Controls.Add(this.generateButton);
@@ -92,6 +103,7 @@ namespace BeziersCurve
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.drawingArea)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberOfPointsInput)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tTrackBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -103,6 +115,7 @@ namespace BeziersCurve
         private System.Windows.Forms.Button generateButton;
         private System.Windows.Forms.Label NumberOfPointsLabel;
         private System.Windows.Forms.NumericUpDown numberOfPointsInput;
+        private System.Windows.Forms.TrackBar tTrackBar;
     }
 }
 
