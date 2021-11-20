@@ -68,11 +68,11 @@ namespace BeziersCurve
             if(drawPolylineCheckbox.Checked) _bezierCurve?.DrawPolyline(drawingAreaGraphics);
             if(checkBox1.Checked)
             {
-                if (AnimationT == 100) AnimationRightDirection = false;
+                if (AnimationT == Constants.ANIMATION_RANGE) AnimationRightDirection = false;
                 else if (AnimationT == 0) AnimationRightDirection = true;
                 if (AnimationRightDirection) AnimationT++;
                 if (!AnimationRightDirection) AnimationT--;
-                var t = (double)AnimationT / 100;
+                var t = (double)AnimationT / Constants.ANIMATION_RANGE;
 
                 _bezierCurve?.DrawAdditionalPoint(drawingAreaGraphics,t);
             }
@@ -98,6 +98,11 @@ namespace BeziersCurve
         private void drawingArea_MouseUp(object sender, MouseEventArgs e)
         {
             moveVerticesHandler?.HandleMouseUp(e);
+        }
+
+        private void numberOfPointsInput_ValueChanged(object sender, EventArgs e)
+        {
+            GenerateButtonClicked(null, null);
         }
     }
 }

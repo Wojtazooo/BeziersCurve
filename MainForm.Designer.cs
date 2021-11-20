@@ -72,6 +72,11 @@ namespace BeziersCurve
             // numberOfPointsInput
             // 
             this.numberOfPointsInput.Location = new System.Drawing.Point(1328, 39);
+            this.numberOfPointsInput.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
             this.numberOfPointsInput.Name = "numberOfPointsInput";
             this.numberOfPointsInput.Size = new System.Drawing.Size(100, 23);
             this.numberOfPointsInput.TabIndex = 4;
@@ -80,6 +85,7 @@ namespace BeziersCurve
             0,
             0,
             0});
+            this.numberOfPointsInput.ValueChanged += new System.EventHandler(this.numberOfPointsInput_ValueChanged);
             // 
             // drawPolylineCheckbox
             // 

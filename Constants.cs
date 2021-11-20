@@ -11,5 +11,6 @@ namespace BeziersCurve
         public const int DETECTION_RADIUS = 10;
         public const int REFRESH_TIME_IN_MS = 10;
         public const int DOT_R = 5;
+        public const int ANIMATION_RANGE = 200;
     }
 }

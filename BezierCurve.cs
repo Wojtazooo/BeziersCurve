@@ -7,6 +7,8 @@ namespace BeziersCurve
     public class BezierCurve
     {
         public List<FPoint> polyline { get; private set; } = new List<FPoint>();
+        public List<FPoint> bezierCurvePoints { get; private set; }
+        private bool _updateInNextRerender = true;
 
         public void DrawPolyline(Graphics g)
         {
@@ -35,15 +37,25 @@ namespace BeziersCurve
 
         public void DrawBezierLine(Graphics g)
         {
+            if(_updateInNextRerender)
+            {
+                CountBezierLine();
+                _updateInNextRerender = false;
+            }
+            for (int i = 1; i < bezierCurvePoints.Count; i++) g.DrawLine(Pens.Black, bezierCurvePoints[i], bezierCurvePoints[i - 1]);
+        }
+
+        private void CountBezierLine()
+        {
             var tMax = CountMaxWidthHeight();
-            
+
             var t = 0.0;
             var dt = 1.0 / tMax;
 
             var n = polyline.Count;
-            var BezierPoints = new List<FPoint>();
+            bezierCurvePoints = new List<FPoint>();
 
-            while(t < 1)
+            while (t < 1)
             {
                 var previouesPoints = new List<FPoint>(polyline);
                 for (int i = 0; i < n - 1; i++)
@@ -57,13 +69,11 @@ namespace BeziersCurve
                         currentPoints.Add(pointBetween);
                     }
                     if (currentPoints.Count == 1)
-                        BezierPoints.Add(currentPoints[0]);
+                        bezierCurvePoints.Add(currentPoints[0]);
                     previouesPoints = new List<FPoint>(currentPoints);
                 }
                 t += dt;
             }
-
-            for (int i = 1; i < BezierPoints.Count; i++) g.DrawLine(Pens.Black, BezierPoints[i], BezierPoints[i - 1]);
         }
 
         public void DrawAdditionalPoint(Graphics g, double t)
@@ -94,7 +104,7 @@ namespace BeziersCurve
                     if (j > 0) g.DrawLine(Pens.Red, currentPoints[j - 1].pointToDraw, currentPoints[j].pointToDraw);
                     brush.Dispose();
                 }
-                previouesPoints = new List<FPoint>(currentPoints);
+                previouesPoints = currentPoints;
             }
             
         }
@@ -102,11 +112,13 @@ namespace BeziersCurve
         public void SetNewPolyline(List<FPoint> newPolylinePoints)
         {
             polyline = newPolylinePoints;
+            _updateInNextRerender = true;
         }
 
         public void MovePoint(int index, FPoint newPosition)
         {
             polyline[index] = newPosition;
+            _updateInNextRerender = true;
         }
     }
 }
