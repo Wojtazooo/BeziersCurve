@@ -16,6 +16,8 @@ namespace BeziersCurve
         private BezierCurve _bezierCurve;
         private Graphics drawingAreaGraphics;
         private MoveVerticesHandler moveVerticesHandler;
+        private bool AnimationRightDirection = true;
+        private int AnimationT = 0;
         public MainForm()
         {
             InitializeComponent();
@@ -63,8 +65,18 @@ namespace BeziersCurve
         private void UpdateView(object sender, EventArgs e)
         {
             drawingAreaGraphics.Clear(Color.White);
-            _bezierCurve?.DrawPolyline(drawingAreaGraphics);
-            _bezierCurve?.DrawAdditionalPoint(drawingAreaGraphics, (double)tTrackBar.Value / tTrackBar.Maximum);
+            if(drawPolylineCheckbox.Checked) _bezierCurve?.DrawPolyline(drawingAreaGraphics);
+            if(checkBox1.Checked)
+            {
+                if (AnimationT == 100) AnimationRightDirection = false;
+                else if (AnimationT == 0) AnimationRightDirection = true;
+                if (AnimationRightDirection) AnimationT++;
+                if (!AnimationRightDirection) AnimationT--;
+                var t = (double)AnimationT / 100;
+
+                _bezierCurve?.DrawAdditionalPoint(drawingAreaGraphics,t);
+            }
+            _bezierCurve?.DrawBezierLine(drawingAreaGraphics);
             drawingArea.Invalidate();
         }
 
