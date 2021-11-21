@@ -8,6 +8,9 @@ namespace BeziersCurve
     {
         public List<FPoint> polyline { get; private set; } = new List<FPoint>();
         public List<FPoint> bezierCurvePoints { get; private set; }
+        public Dictionary<FPoint, double> angles { get; private set; }
+        
+        
         private bool _updateInNextRerender = true;
 
         public void DrawPolyline(Graphics g)
@@ -54,10 +57,12 @@ namespace BeziersCurve
 
             var n = polyline.Count;
             bezierCurvePoints = new List<FPoint>();
+            angles = new Dictionary<FPoint, double>();
 
             while (t < 1)
             {
                 var previouesPoints = new List<FPoint>(polyline);
+                var angle = 0.0;
                 for (int i = 0; i < n - 1; i++)
                 {
                     var currentPoints = new List<FPoint>();
@@ -68,8 +73,16 @@ namespace BeziersCurve
                         FPoint pointBetween = FPoint.GetPointBetween(p1, p2, t);
                         currentPoints.Add(pointBetween);
                     }
-                    if (currentPoints.Count == 1)
+                    if (currentPoints.Count == 2)
+                    {
+                        angle = GraphicsCalculations.CountAngle(currentPoints[0], currentPoints[1]);
+                    }
+                    else if (currentPoints.Count == 1)
+                    { 
                         bezierCurvePoints.Add(currentPoints[0]);
+                        angles.Add(currentPoints[0], angle);
+                    }
+
                     previouesPoints = new List<FPoint>(currentPoints);
                 }
                 t += dt;

@@ -35,8 +35,14 @@ namespace BeziersCurve
             this.numberOfPointsInput = new System.Windows.Forms.NumericUpDown();
             this.drawPolylineCheckbox = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.playButton = new System.Windows.Forms.Button();
+            this.pauseButton = new System.Windows.Forms.Button();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.rotatingCheckbox = new System.Windows.Forms.RadioButton();
+            this.rotationWithCurveCheckbox = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.drawingArea)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberOfPointsInput)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // drawingArea
@@ -109,11 +115,67 @@ namespace BeziersCurve
             this.checkBox1.Text = "Draw Animation";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // playButton
+            // 
+            this.playButton.Location = new System.Drawing.Point(1186, 427);
+            this.playButton.Name = "playButton";
+            this.playButton.Size = new System.Drawing.Size(75, 23);
+            this.playButton.TabIndex = 10;
+            this.playButton.Text = "Play";
+            this.playButton.UseVisualStyleBackColor = true;
+            this.playButton.Click += new System.EventHandler(this.playButton_Click);
+            // 
+            // pauseButton
+            // 
+            this.pauseButton.Location = new System.Drawing.Point(1267, 427);
+            this.pauseButton.Name = "pauseButton";
+            this.pauseButton.Size = new System.Drawing.Size(75, 23);
+            this.pauseButton.TabIndex = 11;
+            this.pauseButton.Text = "Pause";
+            this.pauseButton.UseVisualStyleBackColor = true;
+            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(1186, 376);
+            this.trackBar1.Maximum = 200;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(331, 45);
+            this.trackBar1.TabIndex = 12;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // rotatingCheckbox
+            // 
+            this.rotatingCheckbox.AutoSize = true;
+            this.rotatingCheckbox.Checked = true;
+            this.rotatingCheckbox.Location = new System.Drawing.Point(1229, 524);
+            this.rotatingCheckbox.Name = "rotatingCheckbox";
+            this.rotatingCheckbox.Size = new System.Drawing.Size(70, 19);
+            this.rotatingCheckbox.TabIndex = 13;
+            this.rotatingCheckbox.TabStop = true;
+            this.rotatingCheckbox.Text = "Rotation";
+            this.rotatingCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // rotationWithCurveCheckbox
+            // 
+            this.rotationWithCurveCheckbox.AutoSize = true;
+            this.rotationWithCurveCheckbox.Location = new System.Drawing.Point(1228, 569);
+            this.rotationWithCurveCheckbox.Name = "rotationWithCurveCheckbox";
+            this.rotationWithCurveCheckbox.Size = new System.Drawing.Size(148, 19);
+            this.rotationWithCurveCheckbox.TabIndex = 14;
+            this.rotationWithCurveCheckbox.Text = "Rotation with the curve";
+            this.rotationWithCurveCheckbox.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.Controls.Add(this.rotationWithCurveCheckbox);
+            this.Controls.Add(this.rotatingCheckbox);
+            this.Controls.Add(this.trackBar1);
+            this.Controls.Add(this.pauseButton);
+            this.Controls.Add(this.playButton);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.drawPolylineCheckbox);
             this.Controls.Add(this.numberOfPointsInput);
@@ -124,6 +186,7 @@ namespace BeziersCurve
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.drawingArea)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberOfPointsInput)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -137,6 +200,11 @@ namespace BeziersCurve
         private System.Windows.Forms.NumericUpDown numberOfPointsInput;
         private System.Windows.Forms.CheckBox drawPolylineCheckbox;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button playButton;
+        private System.Windows.Forms.Button pauseButton;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.RadioButton rotatingCheckbox;
+        private System.Windows.Forms.RadioButton rotationWithCurveCheckbox;
     }
 }
 
