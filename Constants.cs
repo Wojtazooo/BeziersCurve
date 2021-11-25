@@ -12,5 +12,6 @@ namespace BeziersCurve
         public const int REFRESH_TIME_IN_MS = 10;
         public const int DOT_R = 5;
         public const int ANIMATION_RANGE = 200;
+        public static readonly List<string> ImageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
     }
 }

@@ -19,6 +19,7 @@ namespace BeziersCurve
         private MoveVerticesHandler moveVerticesHandler;
         private bool AnimationRightDirection = true;
         private int _animationProgress = 0;
+        private Bitmap _bitmapToRotate = null;
         private RotatedBitmap _rotatedBitmap = null;
         private bool animationAcitve = false;
         public MainForm()
@@ -29,7 +30,7 @@ namespace BeziersCurve
             _bezierCurve = new BezierCurve();
             GenerateButtonClicked(null, null);
             moveVerticesHandler = new MoveVerticesHandler(_bezierCurve, drawingArea);
-
+            _bitmapToRotate = new Bitmap(ImagePreview.Image);
             GenerateRotatedBitmap();
         }
 
@@ -44,11 +45,7 @@ namespace BeziersCurve
 
         private void GenerateRotatedBitmap()
         {
-            var path = "./pudzian.jpg";
-            if(File.Exists(path))
-            {
-                _rotatedBitmap = new RotatedBitmap(new Bitmap(Bitmap.FromFile(path)),new FPoint(drawingArea.Width/2, drawingArea.Height/2), Math.PI/4);
-            }
+            _rotatedBitmap = new RotatedBitmap(_bitmapToRotate, new FPoint(drawingArea.Width/2, drawingArea.Height/2), 0, filteringCheckBox.Checked);
         }
 
         private void GenerateBezierCurve(int numberOfVertices)
@@ -86,13 +83,13 @@ namespace BeziersCurve
                 else if (_animationProgress == 0) AnimationRightDirection = true;
                 if (AnimationRightDirection) _animationProgress++;
                 if (!AnimationRightDirection) _animationProgress--;
-                trackBar1.Value = _animationProgress;
+                AnimationLevel.Value = _animationProgress;
             }
 
 
 
             if(drawPolylineCheckbox.Checked) _bezierCurve?.DrawPolyline(drawingAreaGraphics);
-            if(checkBox1.Checked)
+            if(DrawAnimationCheckBox.Checked)
             {
                 var t = (double)_animationProgress / Constants.ANIMATION_RANGE;
                 _bezierCurve?.DrawAdditionalPoint(drawingAreaGraphics,t);
@@ -101,16 +98,11 @@ namespace BeziersCurve
 
 
 
-
-
-
             var currentProgress = (double)_animationProgress / Constants.ANIMATION_RANGE;
             var currentPointOnBezier = _bezierCurve.bezierCurvePoints[(int)(currentProgress * (_bezierCurve.bezierCurvePoints.Count - 1))];
-            _rotatedBitmap.SetCenter(currentPointOnBezier);
             
             if (rotatingCheckbox.Checked)
             {
-
                 var angle = currentProgress * 2 * Math.PI;
                 _rotatedBitmap.SetAngle(angle);
             }
@@ -118,6 +110,7 @@ namespace BeziersCurve
             {
                 var angle = _bezierCurve.angles[currentPointOnBezier];
                 _rotatedBitmap.SetAngle(angle);
+                _rotatedBitmap.SetCenter(currentPointOnBezier);
 
             }
 
@@ -151,14 +144,6 @@ namespace BeziersCurve
             GenerateButtonClicked(null, null);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //var angle = (double)this.angleToRotate.Value * 2 * Math.PI / 360.0;
-
-            //_bezierCurve.MovePoint(1, GraphicsCalculations.RotatePointByAngle(_bezierCurve.polyline[1], _bezierCurve.polyline[0], angle));
-            //_rotatedBitmap.SetAngle(angle);
-        }
-
         private void playButton_Click(object sender, EventArgs e)
         {
             animationAcitve = true;
@@ -171,7 +156,65 @@ namespace BeziersCurve
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            _animationProgress = trackBar1.Value;
+            _animationProgress = AnimationLevel.Value;
+        }
+
+        private void filteringCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            _rotatedBitmap.SetFiltering(filteringCheckBox.Checked);
+        }
+
+        private Bitmap OpenBitmapDialog()
+        {
+            var openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var path = openFileDialog.FileName;
+                if (Constants.ImageExtensions.Contains(Path.GetExtension(path).ToUpperInvariant()))
+                {
+                    return (Bitmap)Bitmap.FromFile(path);
+                }
+                else
+                {
+                    MessageBox.Show($"Invalid extension", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            return null;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LoadImageButton_Click(object sender, EventArgs e)
+        {
+            var bitmapToSet = OpenBitmapDialog();
+            if(bitmapToSet != null)
+            {
+                _bitmapToRotate = new Bitmap(bitmapToSet, new Size((int)ImageWidthInput.Value, (int)ImageHeightInput.Value));
+                ImagePreview.Image = new Bitmap(bitmapToSet, new Size((int)ImagePreview.Width, (int)ImagePreview.Height));
+                GenerateRotatedBitmap();
+            }
+        }
+
+        private void HandleResize()
+        {
+            var resizedBitmap = new Bitmap(ImagePreview.Image, new Size((int)ImageWidthInput.Value, (int)ImageHeightInput.Value));
+            _bitmapToRotate = new Bitmap(resizedBitmap);
+            resizedBitmap.Dispose();
+            GenerateRotatedBitmap();
+        }
+
+        private void ImageWidthInput_ValueChanged(object sender, EventArgs e)
+        {
+            HandleResize();
+        }
+
+        private void ImageHeightInput_ValueChanged(object sender, EventArgs e)
+        {
+            HandleResize();
         }
     }
 }
