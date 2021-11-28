@@ -303,7 +303,7 @@ namespace BeziersCurve
             // 
             // ImagePreview
             // 
-            this.ImagePreview.Image = global::BeziersCurve.Properties.Resources.pudzian;
+            this.ImagePreview.Image = global::BeziersCurve.Properties.Resources.szachownica1;
             this.ImagePreview.ImageLocation = "";
             this.ImagePreview.Location = new System.Drawing.Point(7, 36);
             this.ImagePreview.Name = "ImagePreview";
