@@ -50,6 +50,7 @@ namespace BeziersCurve
             this.ImageWidthInput = new System.Windows.Forms.NumericUpDown();
             this.LoadImageButton = new System.Windows.Forms.Button();
             this.ImagePreview = new System.Windows.Forms.PictureBox();
+            this.DrawImage = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.drawingArea)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberOfPointsInput)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AnimationLevel)).BeginInit();
@@ -224,6 +225,7 @@ namespace BeziersCurve
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.DrawImage);
             this.groupBox3.Controls.Add(this.ImageHeightInput);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.label1);
@@ -311,6 +313,18 @@ namespace BeziersCurve
             this.ImagePreview.TabIndex = 0;
             this.ImagePreview.TabStop = false;
             // 
+            // DrawImage
+            // 
+            this.DrawImage.AutoSize = true;
+            this.DrawImage.Checked = true;
+            this.DrawImage.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.DrawImage.Location = new System.Drawing.Point(15, 285);
+            this.DrawImage.Name = "DrawImage";
+            this.DrawImage.Size = new System.Drawing.Size(89, 19);
+            this.DrawImage.TabIndex = 8;
+            this.DrawImage.Text = "Draw Image";
+            this.DrawImage.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -361,6 +375,7 @@ namespace BeziersCurve
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown ImageWidthInput;
         private System.Windows.Forms.PictureBox ImagePreview;
+        private System.Windows.Forms.CheckBox DrawImage;
     }
 }
 

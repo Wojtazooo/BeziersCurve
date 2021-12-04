@@ -86,8 +86,6 @@ namespace BeziersCurve
                 AnimationLevel.Value = _animationProgress;
             }
 
-
-
             if(drawPolylineCheckbox.Checked) _bezierCurve?.DrawPolyline(drawingAreaGraphics);
             if(DrawAnimationCheckBox.Checked)
             {
@@ -100,22 +98,28 @@ namespace BeziersCurve
 
             var currentProgress = (double)_animationProgress / Constants.ANIMATION_RANGE;
             var currentPointOnBezier = _bezierCurve.bezierCurvePoints[(int)(currentProgress * (_bezierCurve.bezierCurvePoints.Count - 1))];
-            
-            if (rotatingCheckbox.Checked)
-            {
-                var angle = currentProgress * 2 * Math.PI;
-                _rotatedBitmap.SetAngle(angle);
-            }
-            else if(rotationWithCurveCheckbox.Checked)
-            {
-                var angle = _bezierCurve.angles[currentPointOnBezier];
-                _rotatedBitmap.SetAngle(angle);
-                _rotatedBitmap.SetCenter(currentPointOnBezier);
 
-            }
 
             var bitmapToDraw = (Bitmap)drawingArea.Image;
-            _rotatedBitmap?.DrawRotatedBitmap(bitmapToDraw);
+
+
+            if (DrawImage.Checked)
+            {
+                if (rotatingCheckbox.Checked)
+                {
+                    var angle = currentProgress * 2 * Math.PI;
+                    _rotatedBitmap.SetAngle(angle);
+                }
+                else if (rotationWithCurveCheckbox.Checked)
+                {
+                    var angle = _bezierCurve.angles[currentPointOnBezier];
+                    _rotatedBitmap.SetAngle(angle);
+                    _rotatedBitmap.SetCenter(currentPointOnBezier);
+
+                }
+                _rotatedBitmap?.DrawRotatedBitmap(bitmapToDraw);
+            }
+            
             drawingArea.Invalidate();
         }
 
@@ -181,11 +185,6 @@ namespace BeziersCurve
                 }
             }
             return null;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void LoadImageButton_Click(object sender, EventArgs e)

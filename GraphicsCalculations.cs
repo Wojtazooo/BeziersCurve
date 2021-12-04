@@ -44,41 +44,26 @@ namespace BeziersCurve
             return new FPoint(x2 + center.X, y2 + center.Y);
         }
 
-        public static FPoint RotateWithFilteringDestToSrc(FPoint pointToRotate, FPoint center, double angle)
-        {
-            if (angle == Math.PI)
-            {
-                var dx = center.X - pointToRotate.X;
-                var dy = center.Y - pointToRotate.Y;
-                return new FPoint(pointToRotate.X + 2 * dx, pointToRotate.Y + 2 * dy);
-            }
-
-            var x1 = pointToRotate.X - center.X;
-            var y1 = pointToRotate.Y - center.Y;
-
-            var x2 = x1;
-            var y2 = y1;
-            var next = ShearX(x2, y2, angle);
-            x2 = next.X; y2 = next.Y;
-           
-             next = ShearY(x2, y2, angle);
-            x2 = next.X; y2 = next.Y;
-
-            next = ShearX(x2, y2, angle);
-            x2 = next.X; y2 = next.Y;
-           
-            return new FPoint(x2 + center.X, y2 + center.Y);
-        }
-
-        public static FPoint ShearX(double x1, double y1, double angle)
+        public static FPoint ShearXDestToSrc(double x1, double y1, double angle)
         {
             var tgA2 = Math.Tan(angle / 2);
             return new FPoint(x1 - tgA2 * y1, y1);
         }
 
-        public static FPoint ShearY(double x1, double y1, double angle)
+        public static FPoint ShearYDestToSrc(double x1, double y1, double angle)
         {
             return new FPoint(x1, Math.Sin(angle) * x1 + y1);
+        }
+
+        public static FPoint ShearXSrcToDest(double x1, double y1, double angle)
+        {
+            var tgA2 = Math.Tan(angle / 2);
+            return new FPoint(x1 + tgA2 * y1, y1);
+        }
+
+        public static FPoint ShearYSrcToDest(double x1, double y1, double angle)
+        {
+            return new FPoint(x1, - Math.Sin(angle) * x1 + y1);
         }
 
         public static double CountAngle(FPoint p1, FPoint p2)
