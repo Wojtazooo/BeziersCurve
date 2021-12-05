@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BeziersCurve.GraphicObjects;
 
-namespace BeziersCurve
+namespace BeziersCurve.Helpers
 {
     public class GraphicsCalculations
     {

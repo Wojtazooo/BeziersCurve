@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using BeziersCurve.Bezier;
+using BeziersCurve.GraphicObjects;
+using BeziersCurve.Helpers;
 using BeziersCurve.Rotation;
 
 namespace BeziersCurve
@@ -64,7 +67,7 @@ namespace BeziersCurve
         private void InitializeRefreshTimer()
         {
             _renderingTimer = new Timer();
-            _renderingTimer.Interval = Constants.REFRESH_TIME_IN_MS;
+            _renderingTimer.Interval = Constants.RefreshTimeInMs;
             _renderingTimer.Tick += UpdateView;
             _renderingTimer.Start();
         }
@@ -75,7 +78,7 @@ namespace BeziersCurve
 
             if(animationAcitve)
             {
-                if (_animationProgress == Constants.ANIMATION_RANGE) AnimationRightDirection = false;
+                if (_animationProgress == Constants.AnimationRange) AnimationRightDirection = false;
                 else if (_animationProgress == 0) AnimationRightDirection = true;
                 if (AnimationRightDirection) _animationProgress++;
                 if (!AnimationRightDirection) _animationProgress--;
@@ -85,15 +88,15 @@ namespace BeziersCurve
             if(drawPolylineCheckbox.Checked) _bezierCurve?.DrawPolyline(drawingAreaGraphics);
             if(DrawAnimationCheckBox.Checked)
             {
-                var t = (double)_animationProgress / Constants.ANIMATION_RANGE;
+                var t = (double)_animationProgress / Constants.AnimationRange;
                 _bezierCurve?.DrawAdditionalPoint(drawingAreaGraphics,t);
             }
             _bezierCurve?.DrawBezierLine(drawingAreaGraphics);
 
 
 
-            var currentProgress = (double)_animationProgress / Constants.ANIMATION_RANGE;
-            var currentPointOnBezier = _bezierCurve.bezierCurvePoints[(int)(currentProgress * (_bezierCurve.bezierCurvePoints.Count - 1))];
+            var currentProgress = (double)_animationProgress / Constants.AnimationRange;
+            var currentPointOnBezier = _bezierCurve.BezierCurvePoints[(int)(currentProgress * (_bezierCurve.BezierCurvePoints.Count - 1))];
 
 
             var bitmapToDraw = (Bitmap)drawingArea.Image;
@@ -108,7 +111,7 @@ namespace BeziersCurve
                 }
                 else if (rotationWithCurveCheckbox.Checked)
                 {
-                    var angle = _bezierCurve.angles[currentPointOnBezier];
+                    var angle = _bezierCurve.Angles[currentPointOnBezier];
                     _rotatedBitmap.SetAngle(angle);
                     _rotatedBitmap.SetCenter(currentPointOnBezier);
 
