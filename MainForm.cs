@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using BeziersCurve.Rotation;
 
 namespace BeziersCurve
 {
@@ -45,7 +41,7 @@ namespace BeziersCurve
 
         private void GenerateRotatedBitmap()
         {
-            _rotatedBitmap = new RotatedBitmap(_bitmapToRotate, new FPoint(drawingArea.Width/2, drawingArea.Height/2), 0, filteringCheckBox.Checked);
+            _rotatedBitmap = new Rotation.RotatedBitmap(_bitmapToRotate, new FPoint(drawingArea.Width/2, drawingArea.Height/2), 0, filteringCheckBox.Checked);
         }
 
         private void GenerateBezierCurve(int numberOfVertices)
